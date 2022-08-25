@@ -1,0 +1,8 @@
+fun test() {
+   let b = 0;
+   for(let a = 0;a < 10;a++){
+        b = b + 1;
+   }
+   echo(b);
+}
+test();
