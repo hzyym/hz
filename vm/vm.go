@@ -54,10 +54,8 @@ func (v *VM) LastPoppedStackElem() object.Object {
 	return v.stack[v.sp]
 }
 func (v *VM) Run() error {
-	var index int
 	for v.currentFrame().ip < len(v.currentFrame().Instructions())-1 {
 		v.currentFrame().ip++
-		index++
 		frame := v.currentFrame()
 
 		op := code.Opcode(frame.Instructions()[frame.ip])
@@ -327,12 +325,7 @@ func (v *VM) call() {
 	if fun.Type() == object.BUILTFun {
 		f := fun.(*object.InternalFun)
 		var prams []object.Object
-		if val == 1 {
-			prams = v.stack[v.sp-val : v.sp]
-		} else {
-			prams = v.stack[v.sp-val : v.sp]
-		}
-
+		prams = v.stack[v.sp-val : v.sp]
 		v.sp -= val
 		obj := f.Fun_(prams...)
 		if obj != nil {
